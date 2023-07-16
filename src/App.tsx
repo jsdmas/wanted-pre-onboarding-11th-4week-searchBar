@@ -1,7 +1,14 @@
+import { Global } from '@emotion/react';
 import Router from './Router';
+import { reset } from './styles/resetCss';
 
 function App() {
-  return <Router />;
+  return (
+    <>
+      <Global styles={reset} />
+      <Router />
+    </>
+  );
 }
 
 export default App;
