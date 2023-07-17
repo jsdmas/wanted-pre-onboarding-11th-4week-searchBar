@@ -10,12 +10,12 @@ function useDataFetch() {
   const dataFetchEvent = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = await getFetchResponse(formState).catch((error) => alert(error));
-    console.log('data');
+    console.log('submit-data');
     console.log(data);
     console.log('state');
     console.log(formState);
-    setFormState((prev) => ({ ...prev, calling: prev.calling + 1 }));
     setDataState(() => [...data]);
+    setFormState((prev) => ({ ...prev, calling: prev.calling + 1 }));
   };
   return dataFetchEvent;
 }

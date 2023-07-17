@@ -12,5 +12,3 @@
   - 사용법 README에 기술
 
 # ToDo
-
-1. input state 바뀔때마다 추천검색어 뜨도록 api 불러오기
