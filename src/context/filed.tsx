@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { FormState, useFormStateContext, useSetFormStateContext } from './form';
 
-const FieldValueContext = createContext<string | null>(null);
+const FieldValueContext = createContext<string | number | null>(null);
 
 export function FieldProvider({
   name,

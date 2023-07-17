@@ -1,7 +1,7 @@
 import React, { FormEvent, createContext, useContext, useState } from 'react';
 import { getFetchResponse } from '../apis/ServerApi';
 
-export type FormState = { q: string };
+export type FormState = { q: string; calling: number };
 
 type FormSetState = React.Dispatch<React.SetStateAction<FormState>>;
 
@@ -9,10 +9,11 @@ const FormStateContext = createContext<FormState | null>(null);
 const SetFormStateContext = createContext<FormSetState | null>(null);
 
 export function FormProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = useState<FormState>({ q: '' });
+  const [state, setState] = useState<FormState>({ q: '', calling: 0 });
   const dataFetchEvent = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = await getFetchResponse(state).catch((error) => alert(error));
+    console.log(state);
     console.log(data);
   };
   return (

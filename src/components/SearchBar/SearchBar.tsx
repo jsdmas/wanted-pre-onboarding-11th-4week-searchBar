@@ -6,20 +6,20 @@ import { debounce } from '../../utils/debounce';
 import { getFetchResponse } from '../../apis/ServerApi';
 
 function SearchBar() {
-  const [keyword, setKeyword] = useFieldContext();
+  const [value, setValue] = useFieldContext();
   const formState = useFormStateContext();
   const debouncedGetFetchResponse = useCallback(
-    debounce(() => getFetchResponse(formState), 1000),
-    [formState],
+    debounce(async () => await getFetchResponse(formState), 1000),
+    [],
   );
 
   const getDisease = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword((prev) => ({ ...prev, q: event.target.value }));
+    setValue((prev) => ({ ...prev, q: event.target.value }));
     debouncedGetFetchResponse();
   };
-  console.log(formState);
+
   return (
-    <input type="text" placeholder="질환명을 입력해 주세요" value={keyword} onChange={getDisease} />
+    <input type="text" placeholder="질환명을 입력해 주세요" value={value} onChange={getDisease} />
   );
 }
 
