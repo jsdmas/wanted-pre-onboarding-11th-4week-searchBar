@@ -9,8 +9,8 @@ function Router() {
     <BrowserRouter>
       <Suspense fallback={'Loading....'}>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

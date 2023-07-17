@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 function SearchBar() {
-  const [value, setValue] = useState('');
+  const [keyword, setKeyword] = useState('');
 
-  return <input value={value} onChange={(event) => setValue(event.currentTarget.value)} />;
+  return <input value={keyword} onChange={(event) => setKeyword(event.currentTarget.value)} />;
 }
 
 export default SearchBar;
