@@ -7,7 +7,9 @@ export type FormState = {
 type FormSetState = React.Dispatch<React.SetStateAction<FormState>>;
 
 const FormStateContext = createContext<FormState | null>(null);
-const SetFormStateContext = createContext<React.Dispatch<React.SetStateAction<FormState>> | null>(null);
+const SetFormStateContext = createContext<React.Dispatch<React.SetStateAction<FormState>> | null>(
+  null,
+);
 
 export function FormProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<FormState | null>(null);
