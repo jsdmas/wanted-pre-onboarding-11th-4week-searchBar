@@ -15,7 +15,7 @@ function SearchBar() {
 
   const getDisease = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((prev) => ({ ...prev, q: event.target.value }));
-    debouncedGetFetchResponse();
+    // debouncedGetFetchResponse();
   };
 
   return (

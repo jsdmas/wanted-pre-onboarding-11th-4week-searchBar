@@ -1,5 +1,6 @@
 import React, { FormEvent, createContext, useContext, useState } from 'react';
 import { getFetchResponse } from '../apis/ServerApi';
+import { useSetDataStateContext } from './data';
 
 export type FormState = { q: string; calling: number };
 
@@ -10,11 +11,15 @@ const SetFormStateContext = createContext<FormSetState | null>(null);
 
 export function FormProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<FormState>({ q: '', calling: 0 });
+  const setDataState = useSetDataStateContext();
   const dataFetchEvent = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = await getFetchResponse(state).catch((error) => alert(error));
-    console.log(state);
+    console.log('data');
     console.log(data);
+    console.log('state');
+    console.log(state);
+    setDataState(() => [...data]);
   };
   return (
     <FormStateContext.Provider value={state}>

@@ -5,8 +5,7 @@ const BASE_URL = 'http://localhost:4000/sick';
 
 export const getFetchResponse = async (params: FormState) => {
   const url = `${BASE_URL}`;
-  const query = new URLSearchParams(params.q).toString();
-
+  const query = new URLSearchParams({ q: params.q }).toString();
   const response = await fetch(`${url}?${query}`);
   if (!response.ok) {
     throw new Error(ERROR_MESSAGE.FAIL_FETCH);
