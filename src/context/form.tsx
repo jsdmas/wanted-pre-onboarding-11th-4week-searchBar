@@ -1,22 +1,18 @@
 import React, { createContext, useContext, useState } from 'react';
 
-export type FormState = {
-  keyword: string;
-};
+export type FormState = { keyword: string };
 
 type FormSetState = React.Dispatch<React.SetStateAction<FormState>>;
 
 const FormStateContext = createContext<FormState | null>(null);
-const SetFormStateContext = createContext<React.Dispatch<React.SetStateAction<FormState>> | null>(
-  null,
-);
+const SetFormStateContext = createContext<FormSetState | null>(null);
 
 export function FormProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = useState<FormState | null>(null);
+  const [state, setState] = useState<FormState>({ keyword: '' });
 
   return (
     <FormStateContext.Provider value={state}>
-      <SetFormStateContext.Provider value={setState as FormSetState}>
+      <SetFormStateContext.Provider value={setState}>
         <form
           onSubmit={(event) => {
             event.preventDefault();
