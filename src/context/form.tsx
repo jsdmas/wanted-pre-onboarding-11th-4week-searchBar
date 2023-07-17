@@ -1,6 +1,4 @@
-import React, { FormEvent, createContext, useContext, useState } from 'react';
-import { getFetchResponse } from '../apis/ServerApi';
-import { useSetDataStateContext } from './data';
+import React, { createContext, useContext, useState } from 'react';
 
 export type FormState = { q: string; calling: number };
 
@@ -11,21 +9,9 @@ const SetFormStateContext = createContext<FormSetState | null>(null);
 
 export function FormProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<FormState>({ q: '', calling: 0 });
-  const setDataState = useSetDataStateContext();
-  const dataFetchEvent = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = await getFetchResponse(state).catch((error) => alert(error));
-    console.log('data');
-    console.log(data);
-    console.log('state');
-    console.log(state);
-    setDataState(() => [...data]);
-  };
   return (
     <FormStateContext.Provider value={state}>
-      <SetFormStateContext.Provider value={setState}>
-        <form onSubmit={dataFetchEvent}>{children}</form>
-      </SetFormStateContext.Provider>
+      <SetFormStateContext.Provider value={setState}>{children}</SetFormStateContext.Provider>
     </FormStateContext.Provider>
   );
 }

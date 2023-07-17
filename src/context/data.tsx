@@ -9,7 +9,7 @@ const SetDataStateContext = createContext<DataSetState | null>(null);
 
 export function DataProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<DataState>([]);
-  console.log(state);
+
   return (
     <DataStateContext.Provider value={state}>
       <SetDataStateContext.Provider value={setState}>{children}</SetDataStateContext.Provider>
