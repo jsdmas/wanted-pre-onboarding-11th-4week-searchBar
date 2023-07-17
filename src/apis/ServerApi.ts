@@ -1,19 +1,17 @@
 import { ERROR_MESSAGE } from '../constants/ERROR_MESSAGE';
 import { FormState } from '../context/form';
+import { transformQuery } from '../utils/transformQuery';
 
 const BASE_URL = 'http://localhost:4000/sick';
 
-export class ServerApi {
-  async getFetchResponse(query: FormState) {
-    const url = `${BASE_URL}`;
-    console.log(query);
-    const response = await fetch(`${url}`);
-    console.log(response.ok);
+export const getFetchResponse = async (params: FormState) => {
+  const url = `${BASE_URL}`;
+  const query = transformQuery(params);
 
-    if (!response.ok) {
-      throw new Error(ERROR_MESSAGE.FAIL_FETCH);
-    }
-
-    return response.json();
+  const response = await fetch(`${url}?${query}`);
+  if (!response.ok) {
+    throw new Error(ERROR_MESSAGE.FAIL_FETCH);
   }
-}
+
+  return response.json();
+};

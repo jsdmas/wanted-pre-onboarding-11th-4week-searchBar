@@ -9,7 +9,7 @@ function Home() {
   return (
     <Layout header={<Header content={PAGE_DESCRIPTION.HEADER} />}>
       <FormProvider>
-        <FieldProvider name="keyword">
+        <FieldProvider name="sickNm">
           <SearchBar />
         </FieldProvider>
       </FormProvider>
