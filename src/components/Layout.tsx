@@ -22,6 +22,7 @@ const Wrapper = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 60vh;
   width: 100%;
 `;

@@ -12,8 +12,8 @@ export default Header;
 
 const Title = styled.header`
   text-align: center;
-  min-width: 25%;
   line-height: 50px;
+  max-width: 360px;
   h1 {
     font-size: xx-large;
     font-weight: bold;
