@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 export type FormState = {
-  keyword: string;
+  sickData: [];
 };
 
 type FormSetState = React.Dispatch<React.SetStateAction<FormState>>;
