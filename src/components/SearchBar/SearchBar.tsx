@@ -2,6 +2,7 @@ import useModal from '../../hooks/useModal';
 import useDataSubmit from '../../hooks/useDataSubmit';
 import useFiledProcess from '../../hooks/useFiledProcess';
 import Modal from '../Modal/Modal';
+import DiseaseList from '../DiseaseList/DiseaseList';
 
 function SearchBar() {
   const [value, setDisease] = useFiledProcess();
@@ -21,7 +22,7 @@ function SearchBar() {
       </form>
       {isClick && (
         <Modal modalRef={modalRef} modalOutSideClick={modalOutSideClick}>
-          모달
+          <DiseaseList />
         </Modal>
       )}
     </>
