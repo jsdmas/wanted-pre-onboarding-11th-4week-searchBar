@@ -30,7 +30,7 @@ function useFiledProcess() {
   useEffect(() => {
     if (value === '') return;
     debouncedGetFetchResponse(formState.q);
-  }, [formState.q, debouncedGetFetchResponse]);
+  }, [formState.q, debouncedGetFetchResponse, value]);
 
   return [value, setDisease] as const;
 }
