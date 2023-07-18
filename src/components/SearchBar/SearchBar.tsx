@@ -23,8 +23,6 @@ function SearchBar() {
         <S.Button type="submit">
           <S.Svg
             viewBox="0 0 16 16"
-            width="24px"
-            height="24px"
             fill="white"
             preserveAspectRatio="none"
             xmlns="http://www.w3.org/2000/svg"
