@@ -19,7 +19,7 @@ function useFiledProcess() {
     [],
   );
 
-  const getDisease = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const setDisease = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((prev) => ({ ...prev, q: event.target.value }));
   };
 
@@ -32,7 +32,7 @@ function useFiledProcess() {
     debouncedGetFetchResponse(formState);
   }, [formState.q]);
 
-  return [value, getDisease] as const;
+  return [value, setDisease] as const;
 }
 
 export default useFiledProcess;

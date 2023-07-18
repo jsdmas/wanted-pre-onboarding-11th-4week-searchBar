@@ -4,18 +4,18 @@ import useFiledProcess from '../../hooks/useFiledProcess';
 import Modal from '../Modal/Modal';
 
 function SearchBar() {
-  const [value, getDisease] = useFiledProcess();
-  const dataFeatchEvent = useDataSubmit();
+  const [value, setDisease] = useFiledProcess();
+  const diseaseSubmitEvent = useDataSubmit();
   const { isClick, setIsClick, modalRef, modalOutSideClick } = useModal();
 
   return (
     <>
-      <form onSubmit={dataFeatchEvent}>
+      <form onSubmit={diseaseSubmitEvent}>
         <input
           type="text"
           placeholder="질환명을 입력해 주세요"
           value={value}
-          onChange={getDisease}
+          onChange={setDisease}
           onClick={() => setIsClick(true)}
         />
       </form>

@@ -10,7 +10,6 @@ function useModal() {
     }
   };
 
-  console.log(isClick);
   return { isClick, setIsClick, modalOutSideClick, modalRef };
 }
 
