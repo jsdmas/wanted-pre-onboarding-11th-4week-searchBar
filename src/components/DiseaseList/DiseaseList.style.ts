@@ -14,23 +14,3 @@ export const Span = styled.span`
 export const Ul = styled.ul`
   width: 100%;
 `;
-
-export const Li = styled.li`
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
-  padding: 12px 0px;
-  cursor: pointer;
-  &:hover {
-    background-color: whitesmoke;
-  }
-`;
-
-export const Svg = styled.svg`
-  width: 18px;
-  height: 18px;
-`;
-
-export const Sick = styled.span`
-  padding-left: 10px;
-`;
