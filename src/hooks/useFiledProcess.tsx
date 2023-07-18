@@ -11,7 +11,7 @@ function useFiledProcess() {
   const setDataState = useSetDataStateContext();
 
   const debouncedGetFetchResponse = useCallback(
-    debounce(async (formState: FormState) => {
+    debounce(async (formState: string) => {
       const data = await getFetchResponse(formState);
       setDataState(() => [...data]);
       setValue((prev) => ({ ...prev, calling: prev.calling + 1 }));
@@ -29,8 +29,8 @@ function useFiledProcess() {
 
   useEffect(() => {
     if (value === '') return;
-    debouncedGetFetchResponse(formState);
-  }, [formState.q]);
+    debouncedGetFetchResponse(formState.q);
+  }, [formState.q, debouncedGetFetchResponse]);
 
   return [value, setDisease] as const;
 }
