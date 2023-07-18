@@ -28,9 +28,12 @@ function useFiledProcess() {
   }, [formState.calling]);
 
   useEffect(() => {
-    if (value === '') return;
+    if (formState.q.trim() === '') {
+      setDataState([]);
+      return;
+    }
     debouncedGetFetchResponse(formState.q);
-  }, [formState.q, debouncedGetFetchResponse, value]);
+  }, [formState.q, debouncedGetFetchResponse]);
 
   return [value, setDisease] as const;
 }
