@@ -3,7 +3,7 @@ import { useFormStateContext, useSetFormStateContext } from '../context/form';
 import { useSetDataStateContext } from '../context/data';
 import { getFetchResponse } from '../apis/ServerApi';
 
-function useDataFetch() {
+function useDataSubmit() {
   const formState = useFormStateContext();
   const setFormState = useSetFormStateContext();
   const setDataState = useSetDataStateContext();
@@ -20,4 +20,4 @@ function useDataFetch() {
   return dataFetchEvent;
 }
 
-export default useDataFetch;
+export default useDataSubmit;
