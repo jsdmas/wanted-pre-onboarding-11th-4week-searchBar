@@ -28,6 +28,7 @@ function useFiledProcess() {
   }, [formState.calling]);
 
   useEffect(() => {
+    if (value === '') return;
     debouncedGetFetchResponse(formState);
   }, [formState.q]);
 
