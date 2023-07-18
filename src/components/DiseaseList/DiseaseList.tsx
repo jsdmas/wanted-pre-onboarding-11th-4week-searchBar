@@ -5,7 +5,7 @@ function DiseaseList() {
   const dataState = useDataStateContext();
   console.log('dataState');
   console.log(dataState);
-  return <div>모달</div>;
+  return <ul>모달</ul>;
 }
 
 export default memo(DiseaseList);
