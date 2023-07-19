@@ -4,7 +4,9 @@
 이름 : 장진호
 
 # 배포 링크
-
+json서버는 glitch로 배포하였습니다  
+(**때문에 초기에 api 응답이 10초정도 늦어질 수 있으며** 별도의 서버파일은 필요 없습니다.)   
+  
 [사이트 배포 링크](https://wanted-week3-search-bar.vercel.app/)
 
 # 실행 방법
