@@ -11,11 +11,10 @@ function SearchBar() {
   const [value, setValue] = useFiledProcess();
   const diseaseSubmitEvent = useDataSubmit();
   const { isClick, setIsClick, modalRef, modalOutSideClick } = useModal();
-  const [currentIndex, ulRef, handleKeyPress, setCurrentIndex] = useKeyboard();
+  const [ulRef, handleKeyPress] = useKeyboard();
 
   const setDisease = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue((prev) => ({ ...prev, q: event.target.value }));
-    setCurrentIndex(0);
   };
 
   return (
@@ -42,7 +41,7 @@ function SearchBar() {
       </S.Form>
       {isClick && (
         <Modal modalRef={modalRef} modalOutSideClick={modalOutSideClick}>
-          <DiseaseList ulRef={ulRef} currentIndex={currentIndex} />
+          <DiseaseList ulRef={ulRef} />
         </Modal>
       )}
     </>

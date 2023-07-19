@@ -27,7 +27,6 @@ function useFiledProcess() {
   useEffect(() => {
     if (formState.q.trim() === '') {
       setDataState([]);
-      setFormState((prev) => ({ ...prev, q: '' }));
       return;
     }
     debouncedGetFetchResponse(formState.q.trim());
