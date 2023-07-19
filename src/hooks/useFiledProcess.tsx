@@ -1,14 +1,13 @@
 import { useCallback, useEffect } from 'react';
 import { useSetDataStateContext } from '../context/data';
 import { useFieldContext } from '../context/filed';
-import { useFormStateContext, useSetFormStateContext } from '../context/form';
+import { useFormStateContext } from '../context/form';
 import { debounce } from '../utils/debounce';
 import { getVaildResponse } from '../apis/ServerApi';
 
 function useFiledProcess() {
   const [value, setValue] = useFieldContext();
   const formState = useFormStateContext();
-  const setFormState = useSetFormStateContext();
   const setDataState = useSetDataStateContext();
 
   const debouncedGetFetchResponse = useCallback(
@@ -29,7 +28,7 @@ function useFiledProcess() {
       return;
     }
     debouncedGetFetchResponse(formState.q.trim());
-  }, [formState.q, debouncedGetFetchResponse, setFormState, setDataState]);
+  }, [formState.q, debouncedGetFetchResponse]);
 
   return [value, setValue] as const;
 }
