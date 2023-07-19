@@ -1,16 +1,18 @@
 const BASE_URL = 'https://forested-torpid-carpet.glitch.me//sick';
+const CACHE_TIME = 60 * 1000;
+const CACHE_STORAGE = 'myCache';
 
 export const getVaildResponse = async (params: string) => {
   const query = new URLSearchParams({ q: params }).toString();
   const url = `${BASE_URL}?${query}`;
 
-  const cache = await caches.open('myCache');
+  const cache = await caches.open(CACHE_STORAGE);
 
   const cacheResponse = await caches.match(url);
 
   if (cacheResponse) {
     const cachedData = await cacheResponse.json();
-    if (Date.now() - cachedData.timestamp < 10 * 1000) {
+    if (Date.now() - cachedData.timestamp < CACHE_TIME) {
       return cachedData.data;
     }
   }
