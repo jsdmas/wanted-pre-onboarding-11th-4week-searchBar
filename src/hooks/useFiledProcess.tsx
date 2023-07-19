@@ -2,8 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { useSetDataStateContext } from '../context/data';
 import { useFieldContext } from '../context/filed';
 import { useFormStateContext, useSetFormStateContext } from '../context/form';
-import { getFetchResponse } from '../apis/ServerApi';
 import { debounce } from '../utils/debounce';
+import { getVaildResponse } from '../apis/ServerApi';
 
 function useFiledProcess() {
   const [value, setValue] = useFieldContext();
@@ -13,7 +13,7 @@ function useFiledProcess() {
 
   const debouncedGetFetchResponse = useCallback(
     debounce(async (formState: string) => {
-      const data = await getFetchResponse(formState);
+      const data = await getVaildResponse(formState);
       setDataState(() => [...data]);
       setValue((prev) => ({ ...prev, calling: prev.calling + 1 }));
     }, 1000),
@@ -26,7 +26,6 @@ function useFiledProcess() {
 
   useEffect(() => {
     if (formState.q.trim() === '') {
-      setDataState([]);
       return;
     }
     debouncedGetFetchResponse(formState.q.trim());

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormStateContext, useSetFormStateContext } from '../context/form';
 import { useSetDataStateContext } from '../context/data';
-import { getFetchResponse } from '../apis/ServerApi';
+import { getVaildResponse } from '../apis/ServerApi';
 
 function useDataSubmit() {
   const formState = useFormStateContext();
@@ -9,7 +9,8 @@ function useDataSubmit() {
   const setDataState = useSetDataStateContext();
   const dataFetchEvent = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = await getFetchResponse(formState.q).catch((error) => alert(error));
+    if (formState.q.trim() === '') return setFormState((prev) => ({ ...prev, q: '' }));
+    const data = await getVaildResponse(formState.q).catch((error) => alert(error));
     setDataState(() => [...data]);
     setFormState((prev) => ({ ...prev, calling: prev.calling + 1 }));
   };
