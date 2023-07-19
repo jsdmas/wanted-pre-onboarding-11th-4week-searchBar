@@ -1,8 +1,15 @@
 import styled from '@emotion/styled';
+import { memo } from 'react';
 
-function Sick({ sickNm, onClick }: { sickNm: string; onClick: any }) {
+type Props = {
+  sickNm: string;
+  onClick: any;
+  isFocus: boolean;
+};
+
+function Sick({ sickNm, onClick, isFocus }: Props) {
   return (
-    <Li onClick={onClick}>
+    <Li isFocus={isFocus} onClick={onClick}>
       <Svg
         viewBox="0 0 16 16"
         fill="gray"
@@ -16,12 +23,13 @@ function Sick({ sickNm, onClick }: { sickNm: string; onClick: any }) {
   );
 }
 
-const Li = styled.li`
+const Li = styled.li<{ isFocus: boolean }>`
   display: flex;
   align-items: center;
   padding-left: 10px;
   padding: 12px 0px;
   cursor: pointer;
+  background-color: ${(props) => (props.isFocus ? 'whitesmoke' : 'white')};
   &:hover {
     background-color: whitesmoke;
   }
@@ -36,4 +44,4 @@ const SickNmSpan = styled.span`
   padding-left: 10px;
 `;
 
-export default Sick;
+export default memo(Sick);

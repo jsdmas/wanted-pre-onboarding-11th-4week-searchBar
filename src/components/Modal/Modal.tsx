@@ -27,10 +27,10 @@ const ModalLayer = styled.div`
   z-index: 2000;
   width: 470px;
   border-radius: 20px;
-  min-height: 200px;
+  height: 340px;
   position: absolute;
   box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1);
-  top: 62%;
+  top: 72%;
   left: 50%;
   background-color: white;
   transform: translate(-50%, -50%);

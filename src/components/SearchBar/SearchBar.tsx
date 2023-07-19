@@ -4,11 +4,19 @@ import useFiledProcess from '../../hooks/useFiledProcess';
 import Modal from '../Modal/Modal';
 import DiseaseList from '../DiseaseList/DiseaseList';
 import * as S from './SearchBar.style';
+import useKeyboard from '../../hooks/useKeyboard';
+import React from 'react';
 
 function SearchBar() {
-  const [value, setDisease] = useFiledProcess();
+  const [value, setValue] = useFiledProcess();
   const diseaseSubmitEvent = useDataSubmit();
   const { isClick, setIsClick, modalRef, modalOutSideClick } = useModal();
+  const [currentIndex, ulRef, handleKeyPress, setCurrentIndex] = useKeyboard();
+
+  const setDisease = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setValue((prev) => ({ ...prev, q: event.target.value }));
+    setCurrentIndex(0);
+  };
 
   return (
     <>
@@ -19,6 +27,7 @@ function SearchBar() {
           value={value}
           onChange={setDisease}
           onClick={() => setIsClick(true)}
+          onKeyDown={handleKeyPress}
         />
         <S.Button type="submit">
           <S.Svg
@@ -33,7 +42,7 @@ function SearchBar() {
       </S.Form>
       {isClick && (
         <Modal modalRef={modalRef} modalOutSideClick={modalOutSideClick}>
-          <DiseaseList />
+          <DiseaseList ulRef={ulRef} currentIndex={currentIndex} />
         </Modal>
       )}
     </>

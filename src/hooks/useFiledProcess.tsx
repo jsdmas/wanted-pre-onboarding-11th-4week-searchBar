@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSetDataStateContext } from '../context/data';
 import { useFieldContext } from '../context/filed';
-import { useFormStateContext } from '../context/form';
+import { useFormStateContext, useSetFormStateContext } from '../context/form';
 import { getFetchResponse } from '../apis/ServerApi';
 import { debounce } from '../utils/debounce';
 
 function useFiledProcess() {
   const [value, setValue] = useFieldContext();
   const formState = useFormStateContext();
+  const setFormState = useSetFormStateContext();
   const setDataState = useSetDataStateContext();
 
   const debouncedGetFetchResponse = useCallback(
@@ -16,12 +17,8 @@ function useFiledProcess() {
       setDataState(() => [...data]);
       setValue((prev) => ({ ...prev, calling: prev.calling + 1 }));
     }, 1000),
-    [],
+    [setDataState, setValue, debounce],
   );
-
-  const setDisease = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((prev) => ({ ...prev, q: event.target.value }));
-  };
 
   useEffect(() => {
     console.info(`calling api : ${formState.calling}`);
@@ -30,12 +27,13 @@ function useFiledProcess() {
   useEffect(() => {
     if (formState.q.trim() === '') {
       setDataState([]);
+      setFormState((prev) => ({ ...prev, q: '' }));
       return;
     }
-    debouncedGetFetchResponse(formState.q);
-  }, [formState.q, debouncedGetFetchResponse]);
+    debouncedGetFetchResponse(formState.q.trim());
+  }, [formState.q, debouncedGetFetchResponse, setFormState, setDataState]);
 
-  return [value, setDisease] as const;
+  return [value, setValue] as const;
 }
 
 export default useFiledProcess;

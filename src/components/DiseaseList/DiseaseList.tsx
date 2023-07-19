@@ -1,14 +1,17 @@
-import { memo } from 'react';
+import React from 'react';
 import { useDataStateContext } from '../../context/data';
 import * as S from './DiseaseList.style';
 import { useFieldContext } from '../../context/filed';
 import Sick from './Sick';
 
-function DiseaseList() {
+type Props = {
+  ulRef: React.RefObject<HTMLUListElement>;
+  currentIndex: number;
+};
+
+function DiseaseList({ ulRef, currentIndex }: Props) {
   const dataState = useDataStateContext();
   const [, setValue] = useFieldContext();
-  // TODO: 클릭시 submit 필요
-  // TODO: 키보드로 움직이게 하는 기능 필요
   const sickClick = (sickNm: string) => {
     setValue((prev) => ({ ...prev, q: sickNm }));
   };
@@ -16,10 +19,15 @@ function DiseaseList() {
   return (
     <S.Wrapper>
       <S.Span>{dataState.length > 0 ? '추천 검색어' : '검색어 없음'}</S.Span>
-      <S.Ul>
-        {dataState.map((item) => {
+      <S.Ul ref={ulRef}>
+        {dataState.slice(0, 7).map(({ sickNm, sickCd }, idx) => {
           return (
-            <Sick key={item.sickCd} sickNm={item.sickNm} onClick={() => sickClick(item.sickNm)} />
+            <Sick
+              key={sickCd}
+              sickNm={sickNm}
+              onClick={() => sickClick(sickNm)}
+              isFocus={currentIndex === idx}
+            />
           );
         })}
       </S.Ul>
@@ -27,4 +35,4 @@ function DiseaseList() {
   );
 }
 
-export default memo(DiseaseList);
+export default DiseaseList;
