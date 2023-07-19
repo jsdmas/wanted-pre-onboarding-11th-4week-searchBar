@@ -27,7 +27,7 @@ const ModalLayer = styled.div`
   z-index: 2000;
   width: 470px;
   border-radius: 20px;
-  height: 340px;
+  height: 345px;
   position: absolute;
   box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1);
   top: 72%;

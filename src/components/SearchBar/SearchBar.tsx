@@ -5,7 +5,7 @@ import Modal from '../Modal/Modal';
 import DiseaseList from '../DiseaseList/DiseaseList';
 import * as S from './SearchBar.style';
 import useKeyboard from '../../hooks/useKeyboard';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function SearchBar() {
   const [value, setValue] = useFiledProcess();

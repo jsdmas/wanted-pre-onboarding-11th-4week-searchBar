@@ -23,6 +23,5 @@ const getFetchResponse = async (url: string, cache: Cache) => {
   const data = await response.json();
 
   cache.put(url, new Response(JSON.stringify({ data, timestamp: Date.now() })));
-  console.log('data-api 요청');
   return data;
 };

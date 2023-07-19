@@ -16,7 +16,7 @@ function useFiledProcess() {
       const data = await getVaildResponse(formState);
       setDataState(() => [...data]);
       setValue((prev) => ({ ...prev, calling: prev.calling + 1 }));
-    }, 1000),
+    }, 300),
     [setDataState, setValue, debounce],
   );
 

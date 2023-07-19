@@ -9,7 +9,9 @@ function useDataSubmit() {
   const setDataState = useSetDataStateContext();
   const dataFetchEvent = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (formState.q.trim() === '') return setFormState((prev) => ({ ...prev, q: '' }));
+
     const data = await getVaildResponse(formState.q).catch((error) => alert(error));
     setDataState(() => [...data]);
     setFormState((prev) => ({ ...prev, calling: prev.calling + 1 }));
