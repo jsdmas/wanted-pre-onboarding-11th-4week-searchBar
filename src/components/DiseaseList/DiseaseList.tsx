@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDataStateContext } from '../../context/data';
 import * as S from './DiseaseList.style';
 import { useFieldContext } from '../../context/filed';
 import Sick from './Sick';
-import { useIndexStateContext } from '../../context';
+import { useIndexStateContext } from '../../context/indexState';
 
 type Props = {
   ulRef: React.RefObject<HTMLUListElement>;

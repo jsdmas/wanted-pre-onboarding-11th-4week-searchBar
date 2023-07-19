@@ -2,7 +2,7 @@ import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { PAGE_DESCRIPTION } from '../../constants/PAGE_DESCRIPTION';
-import { IndexProvider } from '../../context';
+import { IndexProvider } from '../../context/indexState';
 import { DataProvider } from '../../context/data';
 import { FieldProvider } from '../../context/filed';
 import { FormProvider } from '../../context/form';

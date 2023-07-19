@@ -1,5 +1,5 @@
 import React, { useRef, KeyboardEvent } from 'react';
-import { useIndexStateContext, useSetIndexStateContext } from '../context';
+import { useIndexStateContext, useSetIndexStateContext } from '../context/indexState';
 import { useFieldContext } from '../context/filed';
 
 type KeyboardProps = [
