@@ -9,7 +9,8 @@
 
 # 실행 방법
 
-json서버는 glitch로 배포하였습니다 (때문에 서버 응답이 늦어질 수 있으며 별도의 서버파일은 필요 없습니다.)
+json서버는 glitch로 배포하였습니다  
+(**때문에 초기에 api 응답이 10초정도 늦어질 수 있으며** 별도의 서버파일은 필요 없습니다.)
 
 ```
 yarn install
@@ -61,6 +62,9 @@ const getFetchResponse = async (url: string, cache: Cache) => {
 2. 만약 저장되있는 cache가 있다면 저장한 캐시의 timestamp를 보고 재 요청할지 판단합니다.
 3. 만약 저장시간이 초과되었거나 기존 저장데이터가 아니라면 `getFetchResponse` 함수로 넘어갑니다.
 4. `getFetchResponse`에서는 서버에 요청하고 데이터, `expire time (timestamp)`을 cache 저장소에 저장합니다.
+
+![](https://github.com/jsdmas/wanted-pre-onboarding-11th-4week-searchBar/assets/105098581/132e2ac1-e354-49b8-9c2c-227c8bcc0fc5)  
+캐싱된 검색 요청들은 서버로 요청을 보내지않고 캐시 저장공간에서 꺼내 사용하게 됩니다.
 
 # 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
 
