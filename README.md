@@ -49,7 +49,7 @@ yarn start
     
     동일한 API를 반복적으로 요청하는 것은 **불필요한 네트워크 비용을 발생**시키고 사용자 편의성 측면에서도 **검색어를 보여주기까지 시간**이 걸리므로 좋지 않다고 판단하여 cache기능을 구현하고 **expire time**을 적용하여 최신 데이터를 유지할 수 있도록 하였습니다.
     
-    ![]([https://www.notion.so/9eba8b6f510b4a96af5ed95b009cce7e?pvs=4#1948e246f7dd4dcfbd8c58383200d385](https://file.notion.so/f/s/e7e84a4e-c922-4325-bf9a-876dfc9fc7d2/Untitled.png?id=4a3f7e5b-1da6-49bf-973d-9f1d6129add4&table=block&spaceId=4ad879ee-8801-419a-8198-54a28ce85176&expirationTimestamp=1691532000000&signature=535KqyYiluuiDw1okJuMPzK2iwQtzI7jhAWokzeq8MA&downloadName=Untitled.png))
+![](https://file.notion.so/f/s/e7e84a4e-c922-4325-bf9a-876dfc9fc7d2/Untitled.png?id=4a3f7e5b-1da6-49bf-973d-9f1d6129add4&table=block&spaceId=4ad879ee-8801-419a-8198-54a28ce85176&expirationTimestamp=1691532000000&signature=535KqyYiluuiDw1okJuMPzK2iwQtzI7jhAWokzeq8MA&downloadName=Untitled.png)
     
 - API 호출 최적화를 위한 debounce 구현
     
@@ -57,7 +57,7 @@ yarn start
     
     input 값이 바뀔때마다 api를 요청하게 된다면 불필요한 요청을 보내게되어 **네트워크 비용이 증가하게 됩니다.** 이를 해결하기 위해 **값이 변경된 후 일정 시간이 지난 후에만 API를 요청하도록 동작하는 debounce**를 구현하여 **네트워크 요청을 최적화** 하였습니다.
     
-    ![Untitled]([https://s3-us-west-2.amazonaws.com/secure.notion-static.com/704a2f73-bcd0-476f-881b-90cdd3fb7c29/Untitled.gif](https://file.notion.so/f/s/704a2f73-bcd0-476f-881b-90cdd3fb7c29/Untitled.gif?id=3e9a302d-95a0-4fb9-8ac6-e34d397f3912&table=block&spaceId=4ad879ee-8801-419a-8198-54a28ce85176&expirationTimestamp=1691532000000&signature=9B4II-iK9PLs5jIvM0mUsQpBD1evLAKpQSfLqeXE7Ag&downloadName=Untitled.gif))
+![](https://file.notion.so/f/s/704a2f73-bcd0-476f-881b-90cdd3fb7c29/Untitled.gif?id=3e9a302d-95a0-4fb9-8ac6-e34d397f3912&table=block&spaceId=4ad879ee-8801-419a-8198-54a28ce85176&expirationTimestamp=1691532000000&signature=9B4II-iK9PLs5jIvM0mUsQpBD1evLAKpQSfLqeXE7Ag&downloadName=Untitled.gif)
     
 - 키보드 이벤트를 구현하여 사용자 편의성 개선
     
@@ -65,7 +65,7 @@ yarn start
     
     window객체를 이용하여 키보드 이벤트를 구현할 경우 의도치않은 **사이드 이펙트** 가 발생할 수 있기 때문에 input의 **keyDown** 이벤트를 이용하여 지정한 키보드 이벤트 발생시 데이터를 선택할 수 있도록 하였습니다.
     
-    ![Untitled](https://file.notion.so/f/s/9b8b6054-2ef7-4fda-a472-a5f532c17205/Untitled.gif?id=ac6296c4-f08a-433b-ae74-9e29b807922e&table=block&spaceId=4ad879ee-8801-419a-8198-54a28ce85176&expirationTimestamp=1691532000000&signature=ROZU3m6HAR6H2a896ig4YaaswmBolgPXtDQca3UqsLk&downloadName=Untitled.gif)
+![Untitled](https://file.notion.so/f/s/9b8b6054-2ef7-4fda-a472-a5f532c17205/Untitled.gif?id=ac6296c4-f08a-433b-ae74-9e29b807922e&table=block&spaceId=4ad879ee-8801-419a-8198-54a28ce85176&expirationTimestamp=1691532000000&signature=ROZU3m6HAR6H2a896ig4YaaswmBolgPXtDQca3UqsLk&downloadName=Untitled.gif)
     
 
 ### ‼️ **깨달은 점**
