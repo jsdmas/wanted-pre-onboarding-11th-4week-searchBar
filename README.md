@@ -6,8 +6,6 @@
 | 인원 | 개인 프로젝트 |
 | 저장소 | https://github.com/jsdmas/wanted-pre-onboarding-11th-4week-searchBar |
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/958543c6-2f57-4859-8e67-b02e68241261/Untitled.png)
-
 # 배포 링크
 json서버는 glitch로 배포하였습니다  
 (**때문에 초기에 api 응답이 10초정도 늦어질 수 있으며** 별도의 서버파일은 필요 없습니다.)   
@@ -49,7 +47,7 @@ yarn start
     
     동일한 API를 반복적으로 요청하는 것은 **불필요한 네트워크 비용을 발생**시키고 사용자 편의성 측면에서도 **검색어를 보여주기까지 시간**이 걸리므로 좋지 않다고 판단하여 cache기능을 구현하고 **expire time**을 적용하여 최신 데이터를 유지할 수 있도록 하였습니다.
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e7e84a4e-c922-4325-bf9a-876dfc9fc7d2/Untitled.png)
+    [](https://www.notion.so/9eba8b6f510b4a96af5ed95b009cce7e?pvs=4#1948e246f7dd4dcfbd8c58383200d385)
     
 - API 호출 최적화를 위한 debounce 구현
     
