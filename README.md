@@ -1,7 +1,12 @@
 # wanted-pre-onboarding-11th-4week-searchBar
 
-원티드 4주차 검색창 만들기 과제입니다.  
-이름 : 장진호
+| 소개 | 임상시험에 대한 검색창, 검색어 추천 기능, 캐싱 기능 구현 (기업 과제) |
+| --- | --- |
+| 기간 | 23.07.16 ~ 23.07.19 (4일) |
+| 인원 | 개인 프로젝트 |
+| 저장소 | https://github.com/jsdmas/wanted-pre-onboarding-11th-4week-searchBar |
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/958543c6-2f57-4859-8e67-b02e68241261/Untitled.png)
 
 # 배포 링크
 json서버는 glitch로 배포하였습니다  
@@ -21,143 +26,52 @@ yarn install
 yarn start
 ```
 
-# API 호출별로 로컬 캐싱, expire time 구현
+## 📝 프로젝트 핵심 요구사항
 
-처음에는 localStorage, sessionStorage에 저장하는 방법도 생각했었지만 5 MB 크기의 문자열만 저장 가능하므로 캐싱에 사용하기에는 제약이 많다고 생각했습니다.  
-그래서 캐싱 기능으로 cache Storage를 사용했습니다.
+- 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
+- API 호출별로 로컬 캐싱 구현
+- 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
+- 키보드만으로 추천 검색어들로 이동 가능하도록 구현
 
-**apis/ServerApi.ts**
+## 💾 **기술 스택**
 
-```ts
-const BASE_URL = 'https://forested-torpid-carpet.glitch.me//sick';
-const CACHE_TIME = 60 * 1000;
-const CACHE_STORAGE = 'myCache';
+- Style : `Emotion`
+- Language : `TypeScript`
+- Interface : `React.js`
 
-export const getVaildResponse = async (params: string) => {
-  const query = new URLSearchParams({ q: params }).toString();
-  const url = `${BASE_URL}?${query}`;
+## **💻 핵심 구현 기능**
 
-  const cache = await caches.open(CACHE_STORAGE);
-  const cacheResponse = await caches.match(url);
+- cache기능 구현
+    
+    - API 호출시 네트워크 비용을 절약하기 위해 cache Storage를 사용하여 캐싱기능을 구현하였습니다.
+    
+    localStorage, sessionStorage에 저장하는 방법도 생각했었지만 저장 용량이 5MB까지 저장 가능하므로 나중에라도 데이터 내용이 확장된다면 캐싱에 사용하기에는 제약이 많다고 생각하여 **cache Storage**를 사용했습니다.
+    
+    동일한 API를 반복적으로 요청하는 것은 **불필요한 네트워크 비용을 발생**시키고 사용자 편의성 측면에서도 **검색어를 보여주기까지 시간**이 걸리므로 좋지 않다고 판단하여 cache기능을 구현하고 **expire time**을 적용하여 최신 데이터를 유지할 수 있도록 하였습니다.
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e7e84a4e-c922-4325-bf9a-876dfc9fc7d2/Untitled.png)
+    
+- API 호출 최적화를 위한 debounce 구현
+    
+    - 검색어 입력시 API요청을 최적화 하기위해 debounce를 적용하였습니다.
+    
+    input 값이 바뀔때마다 api를 요청하게 된다면 불필요한 요청을 보내게되어 **네트워크 비용이 증가하게 됩니다.** 이를 해결하기 위해 **값이 변경된 후 일정 시간이 지난 후에만 API를 요청하도록 동작하는 debounce**를 구현하여 **네트워크 요청을 최적화** 하였습니다.
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/704a2f73-bcd0-476f-881b-90cdd3fb7c29/Untitled.gif)
+    
+- 키보드 이벤트를 구현하여 사용자 편의성 개선
+    
+    - 사용자 편의성을 위해 키보드 방향키(위, 아래), Enter 입력시 검색어가 선택되도록 구현하였습니다.
+    
+    window객체를 이용하여 키보드 이벤트를 구현할 경우 의도치않은 **사이드 이펙트** 가 발생할 수 있기 때문에 input의 **keyDown** 이벤트를 이용하여 지정한 키보드 이벤트 발생시 데이터를 선택할 수 있도록 하였습니다.
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9b8b6054-2ef7-4fda-a472-a5f532c17205/Untitled.gif)
+    
 
-  if (cacheResponse) {
-    const cachedData = await cacheResponse.json();
-    if (Date.now() - cachedData.timestamp < CACHE_TIME) {
-      return cachedData.data;
-    }
-  }
+### ‼️ **깨달은 점**
 
-  return getFetchResponse(url, cache);
-};
-
-const getFetchResponse = async (url: string, cache: Cache) => {
-  const response = await fetch(url);
-  const data = await response.json();
-
-  cache.put(url, new Response(JSON.stringify({ data, timestamp: Date.now() })));
-  return data;
-};
-```
-
-`getVaildResponse` 함수부터 설명하면 다음과 같습니다.
-
-1. 저장되어있는 cache가 있는지 확인한다. (cache, cacheResponse)
-2. 만약 저장되있는 cache가 있다면 저장한 캐시의 timestamp를 보고 재 요청할지 판단합니다.
-3. 만약 저장시간이 초과되었거나 기존 저장데이터가 아니라면 `getFetchResponse` 함수로 넘어갑니다.
-4. `getFetchResponse`에서는 서버에 요청하고 데이터, `expire time (timestamp)`을 cache 저장소에 저장합니다.
-
-![](https://github.com/jsdmas/wanted-pre-onboarding-11th-4week-searchBar/assets/105098581/132e2ac1-e354-49b8-9c2c-227c8bcc0fc5)  
-캐싱된 검색 요청들은 서버로 요청을 보내지않고 캐시 저장공간에서 꺼내 사용하게 됩니다.
-
-# 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
-
-디바운스는 특정 이벤트가 발생한 후 일정 시간이 지난 후에만 실제로 동작하는 함수를 만들기 위해 사용됩니다.  
-이를 통해 불필요한 API 호출 횟수를 줄였습니다.
-
-**utils/debounce.ts**
-
-```ts
-export function debounce(callback: any, delay: number = 1000) {
-  let timeoutId: ReturnType<typeof setTimeout>;
-  return (...args: any[]) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback(...args), delay);
-  };
-}
-```
-
-- `callback`: 디바운스를 적용하려는 함수(원래 동작)입니다.
-- `delay`: 디바운스의 대기 시간입니다.
-
-debounce 함수는 클로저를 사용하여 내부 함수를 반환합니다.
-
-**디바운스 작동 방식**
-
-1. 내부 함수가 호출되면, 이전에 설정된 timeoutId를 clearTimeout 함수를 통해 취소합니다.
-2. 그리고 새로운 setTimeout을 실행하여 delay 시간만큼 대기합니다.
-3. 대기 시간이 지나면, 원래의 callback 함수가 인자들과 함께 실행됩니다.
-4. callback 함수가 연속해서 호출되는 상황에서 마지막 호출 이후 delay 시간이 지난 후에만 실제로 callback 함수가 실행되게 됩니다.
-
-# 키보드만으로 추천 검색어들로 이동 가능하도록 구현
-
-- 키보드 화살표 (↑, ↓) 키를 사용해 검색어 목록에서 상하로 이동할 수 있습니다.
-- 선택한 검색어를 검색하려면 Enter 키를 누르면 됩니다.
-
-**hooks/useKeyboard.tsx**
-
-```tsx
-type KeyboardProps = [
-  ulRef: React.RefObject<HTMLUListElement>,
-  handleKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void,
-];
-
-export default function useKeyboard(): KeyboardProps {
-  const indexState = useIndexStateContext();
-  const setIndexState = useSetIndexStateContext();
-  const [, setValue] = useFieldContext();
-  const ulRef = useRef<HTMLUListElement>(null);
-  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
-    const sickList = ulRef.current?.childElementCount ?? 0;
-    if (sickList > 0) {
-      switch (event.key) {
-        case 'ArrowDown':
-          setIndexState((prev) => (prev + 1 >= sickList ? 0 : prev + 1));
-          break;
-        case 'ArrowUp':
-          setIndexState((prev) => (prev - 1 < 0 ? sickList - 1 : prev - 1));
-          break;
-        case 'Enter':
-          {
-            setIndexState(-1);
-            const text = ulRef.current?.children[indexState]?.children[1].textContent ?? '';
-            setValue((prev) => ({ ...prev, q: text }));
-          }
-          break;
-      }
-    }
-  };
-
-return [ulRef, handleKeyPress];
-```
-
-동작에 필요한 상태들은 context로 만들어 최대한 느슨하게 만들도록 노력하였습니다.
-
-- `ulRef` : 검색요청 리스트를 나타낼떄의 부모태그를 지정합니다. 자식 요소들(데이터목록)의 개수를 판단하고 리스트의 text를 가져오도록 도와줍니다.
-
-```tsx
-<S.Ul ref={ulRef}>
-```
-
-구현하는데 아쉬웠던점은 Enter 를 누를시 가져오는 텍스트를 자동화하지 못한 점입니다.
-
-- `handleKeyPress` : 키보드 이벤트가 일어날시 동작할 함수입니다. 사용하려는 검색창 input의 키보드 이벤트에 적용시키면 됩니다.
-
-```tsx
-<Input
-  ...
-  onKeyDown={handleKeyPress}
-/>
-```
+- **cache Storage API** 사용법을 숙지하고 **cache의 개념**을 이해
+- 모달 창을 구현하고 바깥 클릭으로 닫는 기능을 추가함으로써 **사용자 편의 개선 경험**
 
 # Git commit message
 
@@ -169,11 +83,6 @@ return [ulRef, handleKeyPress];
 | Fix    | 버그, 기능 수정    |
 | Remove | 파일 삭제          |
 | Style  | 스타일 관련만 수정 |
-
-# 사용 라이브러리
-
-- style : emotion
-- formatter : eslint, prettier
 
 # 폴더구조
 
