@@ -6,6 +6,8 @@
 | 인원 | 개인 프로젝트 |
 | 저장소 | https://github.com/jsdmas/wanted-pre-onboarding-11th-4week-searchBar |
 
+![](https://file.notion.so/f/s/958543c6-2f57-4859-8e67-b02e68241261/Untitled.png?id=1948e246-f7dd-4dcf-bd8c-58383200d385&table=block&spaceId=4ad879ee-8801-419a-8198-54a28ce85176&expirationTimestamp=1691532000000&signature=-DJSAMMZ8HbXR8R22L7MbCUk5FDFS5-YAkzMk4sNijE&downloadName=Untitled.png)
+
 # 배포 링크
 json서버는 glitch로 배포하였습니다  
 (**때문에 초기에 api 응답이 10초정도 늦어질 수 있으며** 별도의 서버파일은 필요 없습니다.)   
